@@ -8,6 +8,7 @@ const Header = () => {
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to={`/reviews/`}>My Reviews</NavLink></li>
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/service/add'>Add Service</NavLink></li>
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/'>Logout</NavLink></li>
+        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/register'>Register</NavLink></li>
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/login'>Login</NavLink></li>
         </>;
 
