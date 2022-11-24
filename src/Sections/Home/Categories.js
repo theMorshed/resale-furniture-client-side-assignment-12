@@ -6,7 +6,8 @@ import category_three from '../../assets/images/category/category_three.jpg';
 const Categories = () => {
     return (
         <div className='mt-20 pb-20'>
-            <h2 className="text-3xl font-bold text-gray-500 underline underline-offset-2">Categories: </h2>
+            <h2 className="text-3xl font-bold text-gray-500">Categories: </h2>
+            <p className="text-xl text-gray-400">Our Popular Categories</p>            
             <div className='mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 <div className="card w-full bg-base-100 shadow-xl image-full h-40">
                     <figure><img className='w-full' src={category_one} alt="Shoes" /></figure>
