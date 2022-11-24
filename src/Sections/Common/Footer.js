@@ -29,7 +29,7 @@ const Footer = () => {
                     <Link to='/' className="link link-hover">Cookie policy</Link>
                 </div>
             </footer>
-            <div className='text-lg text-center font-normal pb-4'>
+            <div className='text-normal font-normal pb-4'>
                 <p>&copy;Copyright by Resale Furniture 2025.</p>
             </div>
         </div>

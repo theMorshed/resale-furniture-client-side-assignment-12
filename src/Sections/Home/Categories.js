@@ -9,30 +9,30 @@ const Categories = () => {
             <h2 className="text-3xl font-bold text-gray-500">Categories: </h2>
             <p className="text-xl text-gray-400">Our Popular Categories</p>            
             <div className='mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
-                <div className="card w-full bg-base-100 shadow-xl image-full h-40">
+                <div className="card w-full bg-base-100 shadow-xl image-full h-60">
                     <figure><img className='w-full' src={category_one} alt="Shoes" /></figure>
                     <div className="card-body mt-10">
-                        <h2 className="card-title">Dinning Room</h2>
+                        <h2 className="card-title text-2xl">Dinning Room</h2>
                         <p>All dinning furniture are display in this category.</p>
                         <div className="card-actions justify-end">
                             <button className="btn btn-primary">See all</button>
                         </div>
                     </div>
                 </div>
-                <div className="card w-full bg-base-100 shadow-xl image-full h-40">
+                <div className="card w-full bg-base-100 shadow-xl image-full h-60">
                     <figure><img className='w-full' src={category_two} alt="Shoes" /></figure>
                     <div className="card-body mt-10">
-                        <h2 className="card-title">Drawing</h2>
+                        <h2 className="card-title text-2xl">Drawing</h2>
                         <p>These furniture are for drawing room</p>
                         <div className="card-actions justify-end">
                             <button className="btn btn-primary">See all</button>
                         </div>
                     </div>
                 </div>
-                <div className="card w-full bg-base-100 shadow-xl image-full h-40">
+                <div className="card w-full bg-base-100 shadow-xl image-full h-60">
                     <figure><img className='w-full' src={category_three} alt="Shoes" /></figure>
                     <div className="card-body mt-10">
-                        <h2 className="card-title">Kitchen</h2>
+                        <h2 className="card-title text-2xl">Kitchen</h2>
                         <p>Kitchen furniture are goes here..</p>
                         <div className="card-actions justify-end">
                             <button className="btn btn-primary">See all</button>
