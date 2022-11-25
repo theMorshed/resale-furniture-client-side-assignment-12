@@ -10,8 +10,12 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import PrivateRoute from "./PrivateRoute";
-import AllUsers from "../Pages/Dashboard/AllUsers";
 import AdminRoute from "./AdminRoute";
+import AllSellers from "../Pages/Dashboard/AllSellers";
+import AllBuyers from "../Pages/Dashboard/AllBuyers";
+import SellerRoute from "./SellerRoute";
+import SellerProducts from "../Pages/Dashboard/SellerProducts";
+import SellerBuyers from "../Pages/Dashboard/SellerBuyers";
 
 const router = createBrowserRouter([
     {
@@ -52,11 +56,23 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/add-furniture',
-                element: <AddFurniture></AddFurniture>
+                element: <SellerRoute><AddFurniture></AddFurniture></SellerRoute>
             },
             {
-                path: '/dashboard/allusers',
-                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+                path: '/dashboard/sellerproducts',
+                element: <SellerRoute><SellerProducts></SellerProducts></SellerRoute>
+            },
+            {
+                path: '/dashboard/sellerbuyers',
+                element: <SellerRoute><SellerBuyers></SellerBuyers></SellerRoute>
+            },
+            {
+                path: '/dashboard/allsellers',
+                element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
+            },
+            {
+                path: '/dashboard/allbuyers',
+                element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             }
         ]
     }

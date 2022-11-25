@@ -1,10 +1,56 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const AddFurniture = () => {
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+
     const handleAddFurniture = event => {
         event.preventDefault();
-        toast.success('Furniture added successfully.');
+        const form = event.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const original_price = form.original_price.value;
+        const date = form.date.value;
+        const seller = user?.displayName;
+        const condition = form.condition.value;
+        const phone = form.phone.value;
+        const location = form.location.value;
+        const category = form.category.value;
+        const description = form.description.value;
+        const resale_price = form.resale_price.value;
+        const purchase_year = form.purchase_year.value;
+
+        const furniture = {
+            name,
+            photo,
+            original_price,
+            condition,
+            phone,
+            date,
+            seller,
+            location,
+            category,
+            description,
+            resale_price,
+            purchase_year
+        }
+
+        fetch('http://localhost:5000/addfurniture', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(furniture)
+        })
+            .then(res => res.json())
+            .then(result => {
+                console.log(result);
+                toast.success(`${furniture.name} is added successfully`);
+                navigate('/');
+            })
     }
 
     return (
@@ -18,15 +64,21 @@ const AddFurniture = () => {
                 </div>
                 <div className="form-control w-1/2">
                     <label className="label">
-                        <span className="label-text">Photo</span>
+                        <span className="label-text">Photo URL</span>
                     </label>
-                    <input type="file" className="file-input file-input-bordered file-input-md w-full" />
+                    <input type="text" name="photo" className="file-input file-input-bordered file-input-md w-full" />
                 </div>
                 <div className="form-control w-1/2">
                     <label className="label">
                         <span className="label-text">Original Price</span>
                     </label>
                     <input type="number" name="original_price" placeholder="Original Price" className="input input-bordered" required />
+                </div>
+                <div className="form-control w-1/2">
+                    <label className="label">
+                        <span className="label-text">Posted Date</span>
+                    </label>
+                    <input type="date" name="date" placeholder="Original Price" className="input input-bordered" required />
                 </div>
                 <div className="form-control w-1/2">
                     <label className="label">
