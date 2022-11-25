@@ -1,17 +1,29 @@
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 
 const Header = () => {
+
+    const {user, logOut} = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut();
+    }
 
     const menuItem = <>
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/services'>Services</NavLink></li>
         <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/blog'>Blog</NavLink></li>
-        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to={`/reviews/`}>My Reviews</NavLink></li>
-        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/service/add'>Add Service</NavLink></li>
-        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/'>Logout</NavLink></li>
-        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/register'>Register</NavLink></li>
-        <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/login'>Login</NavLink></li>
+        {
+            user ?
+                <>
+                    <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to={`/reviews/${user?.email}`}>My Reviews</NavLink></li>
+                    <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/service/add'>Add Service</NavLink></li>
+                    <li><NavLink onClick={handleLogout} className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/'>Logout</NavLink></li>
+                </>
+                :
+                <li><NavLink className={({ isActive }) => isActive ? 'underline underline-offset-4' : undefined} to='/login'>Login</NavLink></li>
+        }
         </>;
-
 
     return (
         <div>
