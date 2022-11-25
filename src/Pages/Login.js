@@ -21,7 +21,6 @@ const Login = () => {
                 const user = result.user;
                 setUser(user);
                 navigate(from, { replace: true });
-                console.log(user);
                 // const currentUser = {
                 //     email: user.email
                 // }
