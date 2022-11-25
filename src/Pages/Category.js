@@ -8,6 +8,7 @@ const Category = () => {
     const { id } = useParams();
     console.log(id);
     const [selectedFurniture, setSelectedFurniture] = useState({});
+    
     // category data fetch from mongodb using react query and react axios
     const categoryData = [
         {
@@ -55,7 +56,9 @@ const Category = () => {
                     </div>)
                 }                                
             </div>
-            <BookingModal selectedFurniture={selectedFurniture}></BookingModal>
+            {
+                Object.keys(selectedFurniture).length > 0 && <BookingModal selectedFurniture={selectedFurniture} setSelectedFurniture={setSelectedFurniture}></BookingModal>
+            }
         </div>
     );
 };

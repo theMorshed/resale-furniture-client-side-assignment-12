@@ -28,7 +28,6 @@ const Register = () => {
                     });
                 setUser(result.user);
                 form.reset();
-                console.log(result.user);
                 navigate(from, { replace: true });
             })
             .catch(err => {
@@ -77,7 +76,6 @@ const Register = () => {
                                 <span className="label-text">User Role</span>
                             </label>
                             <select name="role" className="select select-bordered w-full">
-                                <option value="general">General</option>
                                 <option value="buyer">Buyer</option>
                                 <option value="seller">Seller</option>
                             </select>

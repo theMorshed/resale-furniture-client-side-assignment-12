@@ -1,16 +1,33 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
-const BookingModal = ({ selectedFurniture }) => {
+const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
     const { user } = useContext(AuthContext);
     const { name, resalePrice } = selectedFurniture;
 
     const handleBookedFurniture = event => {
         event.preventDefault();
         const form = event.target;
+        const user_name = form.user_name.value;
+        const email = form.email.value;
+        const item_name = form.item_name.value;
+        const price = form.price.value;
+        const phone = form.phone.value;
+        const location = form.location.value;
 
-        console.log('Furniture booked successsfully.');
-        form.reset();
+        const bookedFurniture = {
+            user_name,
+            email,
+            item_name,
+            price,
+            phone,
+            location
+        }
+        console.log(bookedFurniture);
+
+        toast.success(`${name} booked successfully.`);
+        setSelectedFurniture({});
     }
 
     return (

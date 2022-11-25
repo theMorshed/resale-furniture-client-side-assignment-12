@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { FaGoogle } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
@@ -52,6 +53,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
+                saveUser(user.displayName, user.email, 'buyer');
                 // const currentUser = {
                 //     email: user.email
                 // }
@@ -75,6 +77,21 @@ const Login = () => {
             .catch(err => {
                 setError(err.message);
             });
+    }
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                toast.success('User Created successfully.');
+            })
     }
 
     return (
