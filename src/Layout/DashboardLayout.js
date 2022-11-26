@@ -35,7 +35,7 @@ const DashboardLayout = () => {
                         }
                         {
                             userRole === 'buyer' && <>
-                                <li><Link to="/dashboard/myorders">My Orders</Link></li>
+                                <li><Link to={`/dashboard/orders/${user?.email}`}>My Orders</Link></li>
                             </>
                         }
                     </ul>

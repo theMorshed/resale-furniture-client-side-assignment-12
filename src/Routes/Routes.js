@@ -76,7 +76,7 @@ const router = createBrowserRouter([
                 element: <AdminRoute><AllBuyers></AllBuyers></AdminRoute>
             },
             {
-                path: '/dashboard/myorders',
+                path: '/dashboard/orders/:email',
                 element: <MyOrders></MyOrders>
             }
         ]

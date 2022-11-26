@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
     const { user } = useContext(AuthContext);
-    const { name, resale_price } = selectedFurniture;
+    const { _id, name, resale_price } = selectedFurniture;
+    const navigate = useNavigate();
+
     const handleBookedFurniture = event => {
         event.preventDefault();
         const form = event.target;
@@ -21,9 +24,23 @@ const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
             item_name,
             price,
             phone,
-            location
+            location,
+            product_id: _id
         }
-        console.log(bookedFurniture);
+        
+        const url = 'http://localhost:5000/orders';
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(bookedFurniture)
+        })
+        .then(res => res.json())
+        .then(result => {
+            toast.success(`${item_name} booked successfully`);
+            navigate(`/dashboard/orders/${email}`);
+        })
 
         toast.success(`${name} booked successfully.`);
         setSelectedFurniture({});
