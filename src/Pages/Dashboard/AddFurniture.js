@@ -14,7 +14,7 @@ const AddFurniture = () => {
         const email = user?.email;
         const photo = form.photo.value;
         const original_price = form.original_price.value;
-        const date = form.date.value;
+        const date = new Date().toJSON().slice(0, 10);
         const seller = user?.displayName;
         const condition = form.condition.value;
         const phone = form.phone.value;
@@ -23,6 +23,7 @@ const AddFurniture = () => {
         const description = form.description.value;
         const resale_price = form.resale_price.value;
         const purchase_year = form.purchase_year.value;
+        const status = 'available';
 
         const furniture = {
             name,
@@ -37,7 +38,8 @@ const AddFurniture = () => {
             category,
             description,
             resale_price,
-            purchase_year
+            purchase_year,
+            status
         }
 
         fetch('http://localhost:5000/addfurniture', {
@@ -49,7 +51,6 @@ const AddFurniture = () => {
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result);
                 toast.success(`${furniture.name} is added successfully`);
                 navigate('/dashboard/sellerproducts');
             })
@@ -57,6 +58,7 @@ const AddFurniture = () => {
 
     return (
         <div className='ml-8'>
+            <h2 className="text-3xl font-bold text-gray-500 mb-10">Add a Product </h2>
             <form onSubmit={handleAddFurniture}>
                 <div className="form-control w-1/2">
                     <label className="label">
@@ -81,12 +83,6 @@ const AddFurniture = () => {
                         <span className="label-text">Original Price</span>
                     </label>
                     <input type="number" name="original_price" placeholder="Original Price" className="input input-bordered" required />
-                </div>
-                <div className="form-control w-1/2">
-                    <label className="label">
-                        <span className="label-text">Posted Date</span>
-                    </label>
-                    <input type="date" name="date" placeholder="Original Price" className="input input-bordered" required />
                 </div>
                 <div className="form-control w-1/2">
                     <label className="label">

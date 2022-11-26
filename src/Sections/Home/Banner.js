@@ -9,7 +9,7 @@ const Banner = () => {
                 <div className="max-w-md">
                     <h1 className="mb-5 text-5xl font-bold">Resale Furniture</h1>
                     <p className="mb-5">Hello Seller and Buyer you can buy and sell used furniture with this website..</p>
-                    <button className="btn btn-primary">Start Selling</button>
+                    <button className="btn btn-primary btn-sm">Start Selling</button>
                 </div>
             </div>
         </div>

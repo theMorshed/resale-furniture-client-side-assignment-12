@@ -1,21 +1,15 @@
-import { useQuery } from '@tanstack/react-query';
-import React from 'react';
-import LoadingSpinner from '../../Sections/Common/LoadingSpinner';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 
 const AllBuyers = () => {
 
-    const {data: allBuyers, isLoading} = useQuery({
-        queryKey: ['buyers'],
-        queryFn: async () => {
-            const result = await fetch('http://localhost:5000/allbuyers');
-            const data = await result.json();
-            return data;
-        }
-    });
-
-    if (isLoading) {
-        return <LoadingSpinner></LoadingSpinner>
-    }
+    const [allBuyers, setAllBuyers] = useState([]);
+    useEffect(() => {
+        axios('http://localhost:5000/allbuyers')
+            .then(result => {
+                setAllBuyers(result.data);
+            });
+    }, []);    
     
     return (
         <div>
@@ -25,7 +19,7 @@ const AllBuyers = () => {
                 {
                     allBuyers.map(buyer => <div className='border p-3 rounded-lg hover:border-primary' key={buyer._id}>
                         <p className="text-gray-500">Name: {buyer.name}</p>
-                        <button className="btn btn-primary mt-6">Delete</button>
+                        <button className="btn btn-primary mt-6 btn-sm">Delete</button>
                     </div>)
                 }
             </div>

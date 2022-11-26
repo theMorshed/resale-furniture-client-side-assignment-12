@@ -39,7 +39,7 @@ const Categories = () => {
                             <h2 className="card-title text-2xl">{category.name}</h2>
                             <p>{category.desc}</p>
                             <div className="card-actions justify-end">
-                                <Link to={`/category/${category.id}`}><button className="btn btn-primary">See all</button></Link>
+                                <Link to={`/category/${category.id}`}><button className="btn btn-primary btn-sm">See all</button></Link>
                             </div>
                         </div>
                     </div>)

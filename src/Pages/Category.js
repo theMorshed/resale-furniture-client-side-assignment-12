@@ -38,7 +38,7 @@ const Category = () => {
                                 <p><strong className='text-lg'>Seller:</strong> {furniture.seller}</p>
                                 <div className="card-actions justify-end">
                                     {/* The button to open modal */}
-                                    <label onClick={() => setSelectedFurniture(furniture)} htmlFor="furniture-book-modal" className="btn btn-primary">Book Now</label>
+                                    <label onClick={() => setSelectedFurniture(furniture)} htmlFor="furniture-book-modal" className="btn btn-primary btn-sm">Book Now</label>
                                 </div>
                             </div>
                         </div>)

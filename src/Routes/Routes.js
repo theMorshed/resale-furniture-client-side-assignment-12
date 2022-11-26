@@ -14,6 +14,7 @@ import AdminRoute from "./AdminRoute";
 import AllSellers from "../Pages/Dashboard/AllSellers";
 import AllBuyers from "../Pages/Dashboard/AllBuyers";
 import SellerRoute from "./SellerRoute";
+import BuyerRoute from "./BuyerRoute";
 import SellerProducts from "../Pages/Dashboard/SellerProducts";
 import SellerBuyers from "../Pages/Dashboard/SellerBuyers";
 import MyOrders from "../Pages/Dashboard/MyOrders";
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/orders/:email',
-                element: <MyOrders></MyOrders>
+                element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>
             }
         ]
     }

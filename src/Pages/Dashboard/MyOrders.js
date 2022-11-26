@@ -27,7 +27,8 @@ const MyOrders = () => {
                     orders.map(order => <div className='border p-3 rounded-lg hover:border-primary' key={order._id}>
                         <p className="text-gray-500">Name: {order.item_name}</p>
                         <p className="text-gray-500">Price: ${order.price}</p>
-                        <button className="btn btn-primary mt-6">Buy Now</button>
+                        <button className="btn btn-primary mt-6 mr-3">Buy Now</button>
+                        <button className="btn btn-primary mt-6">Delete</button>
                     </div>)
                 }
             </div>

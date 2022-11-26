@@ -1,30 +1,53 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../Contexts/AuthProvider';
 
 const SellerProducts = () => {
     const {user} = useContext(AuthContext);
-    const [sellerProducts, setSellerProducts] = useState([]);
-    useEffect(() => {
-        axios(`http://localhost:5000/sellerproducts/${user?.email}`)
+    // const [sellerProducts, setSellerProducts] = useState([]);
+    // useEffect(() => {
+    //     axios(`http://localhost:5000/sellerproducts/${user?.email}`)
+    //     .then(result => {
+    //         setSellerProducts(result.data);
+    //     });
+    // }, [user?.email]);
+
+    const {data: sellerProducts, refetch} = useQuery({
+        queryKey: ['sellerproducts'],
+        queryFn: async() => {
+            const result = await fetch(`http://localhost:5000/sellerproducts/${user?.email}`);
+            const data = await result.json();
+            return data;
+        }
+    })
+
+    const handleDelete = (id, name) => {
+        fetch(`http://localhost:5000/deletefurniture/${id}`, {
+            method: 'DELETE'
+        })
+        .then(res => res.json())
         .then(result => {
-            setSellerProducts(result.data);
-        });
-    }, [user?.email]);
+            toast.success(`${name} deleted successfully.`);
+            refetch();
+        })
+    }
 
     return (
         <div className='mt-10'>
             <h2 className="text-3xl font-bold text-gray-500 mb-10">{user?.displayName}'s Items: </h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5">
                 {
-                    sellerProducts.map(product => 
+                    sellerProducts?.map(product => 
                     <div className="card lg:card-side shadow-xl" key={product._id}>
                         <figure className='w-1/2'><img className='h-full' src={product.photo} alt="Album" /></figure>
                         <div className="card-body">
                             <h2 className="card-title">{product.name}</h2>
-                            <p>Status: Available/sold</p>
+                            <p>Price: {product.resale_price}</p>
+                            <p>Status: {product.status}</p>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-primary">Advertise</button>
+                                <button onClick={() => handleDelete(product._id, product.name)} className="btn btn-primary btn-xs">Delete</button>
+                                <button className="btn btn-primary btn-xs">Advertise</button>
                             </div>
                         </div>
                     </div>)
