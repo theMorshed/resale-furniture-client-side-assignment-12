@@ -11,7 +11,7 @@ const SellerProducts = () => {
             setSellerProducts(result.data);
         });
     }, [user?.email]);
-    console.log(sellerProducts);
+
     return (
         <div className='mt-10'>
             <h2 className="text-3xl font-bold text-gray-500 mb-10">{user?.displayName}'s Items: </h2>

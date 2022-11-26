@@ -33,6 +33,11 @@ const DashboardLayout = () => {
                                 <li><Link to="/dashboard/sellerbuyers">My Buyers</Link></li>
                             </>
                         }
+                        {
+                            userRole === 'buyer' && <>
+                                <li><Link to="/dashboard/myorders">My Orders</Link></li>
+                            </>
+                        }
                     </ul>
 
                 </div>

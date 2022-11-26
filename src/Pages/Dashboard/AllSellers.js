@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import SellerBuyers from './SellerBuyers';
 
 const AllSellers = () => {
     const [allSellers, setAllSellers] = useState([]);
