@@ -4,8 +4,7 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
     const { user } = useContext(AuthContext);
-    const { name, resalePrice } = selectedFurniture;
-
+    const { name, resale_price } = selectedFurniture;
     const handleBookedFurniture = event => {
         event.preventDefault();
         const form = event.target;
@@ -54,13 +53,13 @@ const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
                             <label className="label">
                                 <span className="label-text">Item Name</span>
                             </label>
-                            <input defaultValue={name} readOnly type="text" name="item_name" placeholder="Item Name" className="input input-bordered" required />
+                            <input value={name} readOnly type="text" name="item_name" placeholder="Item Name" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Price</span>
                             </label>
-                            <input defaultValue={resalePrice} readOnly type="number" name="price" placeholder="Price" className="input input-bordered" required />
+                            <input value={resale_price} readOnly type="number" name="price" placeholder="Price" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">

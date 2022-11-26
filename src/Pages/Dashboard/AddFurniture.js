@@ -11,6 +11,7 @@ const AddFurniture = () => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
+        const email = user?.email;
         const photo = form.photo.value;
         const original_price = form.original_price.value;
         const date = form.date.value;
@@ -25,6 +26,7 @@ const AddFurniture = () => {
 
         const furniture = {
             name,
+            email,
             photo,
             original_price,
             condition,
@@ -49,7 +51,7 @@ const AddFurniture = () => {
             .then(result => {
                 console.log(result);
                 toast.success(`${furniture.name} is added successfully`);
-                navigate('/');
+                navigate('/dashboard/sellerproducts');
             })
     }
 
@@ -61,6 +63,12 @@ const AddFurniture = () => {
                         <span className="label-text">Name</span>
                     </label>
                     <input type="text" name="name" placeholder="Name" className="input input-bordered" required />
+                </div>
+                <div className="form-control w-1/2">
+                    <label className="label">
+                        <span className="label-text">Seller Email</span>
+                    </label>
+                    <input type="email" value={user?.email} disabled name="email" placeholder="Name" className="input input-bordered" required />
                 </div>
                 <div className="form-control w-1/2">
                     <label className="label">

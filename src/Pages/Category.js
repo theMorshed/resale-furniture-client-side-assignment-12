@@ -6,7 +6,6 @@ import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 
 const Category = () => {
     const { id } = useParams();
-    console.log(id);
     const [selectedFurniture, setSelectedFurniture] = useState({});
     const { data: furnitures, isLoading } = useQuery({
         queryKey: ['categories'],
@@ -26,7 +25,7 @@ const Category = () => {
             <h2 className="text-3xl font-bold text-gray-500">Dinning Products: </h2>
             <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 mt-5">
                 {
-                    furnitures.map(furniture =>
+                    furnitures?.map(furniture =>
                         <div className="card lg:card-side shadow-xl" key={furniture._id}>
                             <figure><img className='h-full' src={furniture.photo} alt="Album" /></figure>
                             <div className="card-body w-3/4">
