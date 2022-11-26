@@ -29,8 +29,17 @@ const AllSellers = () => {
             })
     }
 
-    console.log(allSellers);
-    
+    const handleDelete = (id, name) => {
+        fetch(`http://localhost:5000/deleteSeller/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(result => {
+                toast.success(`${name} deleted successfully.`);
+                refetch();
+            })
+    }
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-gray-500 mb-10">All Sellers:</h2>
@@ -40,7 +49,7 @@ const AllSellers = () => {
                     allSellers.map(seller => <div className='border p-3 rounded-lg hover:border-primary' key={seller._id}>
                         <p className="text-gray-500">{seller.isVerified && <SiVerizon className='inline mr-3 border rounded-full p-1 text-2xl text-primary border-primary'></SiVerizon>}{ seller.name }</p>
                         {!seller.isVerified && <button className="btn btn-primary mt-6 btn-sm mr-3" onClick={() => handleVerify(seller._id, seller.name)}>Verify</button>}
-                        <button className="btn btn-primary mt-6 btn-sm">Delete</button>
+                        <button className="btn btn-primary mt-6 btn-sm" onClick={() => handleDelete(seller._id, seller.name)}>Delete</button>
                     </div>)
                 }
             </div>

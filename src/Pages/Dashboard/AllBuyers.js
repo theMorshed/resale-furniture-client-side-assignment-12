@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const AllBuyers = () => {
-
     const [allBuyers, setAllBuyers] = useState([]);
     useEffect(() => {
         axios('http://localhost:5000/allbuyers')
@@ -10,6 +10,16 @@ const AllBuyers = () => {
                 setAllBuyers(result.data);
             });
     }, []);    
+
+    const handleDelete = (id, name) => {
+        fetch(`http://localhost:5000/deleteBuyer/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(result => {
+                toast.success(`${name} deleted successfully.`);
+            })
+    }
     
     return (
         <div>
@@ -19,7 +29,7 @@ const AllBuyers = () => {
                 {
                     allBuyers.map(buyer => <div className='border p-3 rounded-lg hover:border-primary' key={buyer._id}>
                         <p className="text-gray-500">Name: {buyer.name}</p>
-                        <button className="btn btn-primary mt-6 btn-sm">Delete</button>
+                        <button className="btn btn-primary mt-6 btn-sm" onClick={() => handleDelete(buyer._id, buyer.name)}>Delete</button>
                     </div>)
                 }
             </div>
