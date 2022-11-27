@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Contexts/AuthProvider';
@@ -6,6 +7,10 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 const AddFurniture = () => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
+    const [isVerified, setIsVerified] = useState(false);
+
+    axios(`http://localhost:5000/verifySeller/${user?.email}`)
+        .then(result => setIsVerified(result.data.isVerified));
 
     const handleAddFurniture = event => {
         event.preventDefault();
@@ -39,7 +44,9 @@ const AddFurniture = () => {
             description,
             resale_price,
             purchase_year,
-            status
+            status,
+            verifiedSeller: isVerified,
+            advertised: false
         }
 
         fetch('https://resale-server.vercel.app/addfurniture', {

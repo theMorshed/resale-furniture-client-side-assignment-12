@@ -20,7 +20,18 @@ const SellerProducts = () => {
             const data = await result.json();
             return data;
         }
-    })
+    });
+
+    const handleAdvertiseItem = (id, name) => {
+        fetch(`http://localhost:5000/advertisefurniture/${id}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(result => {
+                toast.success(`${name} advertised successfully.`);
+                refetch();
+            })
+    }
 
     const handleDelete = (id, name) => {
         fetch(`https://resale-server.vercel.app/deletefurniture/${id}`, {
@@ -35,7 +46,7 @@ const SellerProducts = () => {
 
     return (
         <div className='mt-10'>
-            <h2 className="text-3xl font-bold text-gray-500 mb-10">{user?.displayName}'s Items: </h2>
+            {sellerProducts?.length > 0 ? <h2 className="text-3xl font-bold text-gray-500 mb-10">{user?.displayName}'s Items: </h2> : <h2 className="text-3xl font-bold text-gray-500 mb-10">You don't have any product to display</h2>}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-5">
                 {
                     sellerProducts?.map(product => 
@@ -44,10 +55,10 @@ const SellerProducts = () => {
                         <div className="card-body">
                             <h2 className="card-title">{product.name}</h2>
                             <p>Price: {product.resale_price}</p>
-                            <p>Status: {product.status}</p>
+                            <p>Status: {product.status}</p>                            
                             <div className="card-actions justify-end">
                                 <button onClick={() => handleDelete(product._id, product.name)} className="btn btn-primary btn-xs">Delete</button>
-                                <button className="btn btn-primary btn-xs">Advertise</button>
+                                    {product.status === 'available' && !product.advertised && <button className="btn btn-primary btn-xs" onClick={() => handleAdvertiseItem(product._id, product.name)}>Advertise</button>}
                             </div>
                         </div>
                     </div>)
