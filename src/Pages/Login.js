@@ -19,28 +19,25 @@ const Login = () => {
         logIn(email, password)
             .then(result => {
                 const user = result.user;
-                setUser(user);
-                navigate(from, { replace: true });
-                // const currentUser = {
-                //     email: user.email
-                // }
 
-                // // get jwt token
-                // fetch('https://psychologist-server.vercel.app/jwt', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify(currentUser)
-                // })
-                //     .then(res => res.json())
-                //     .then(data => {
-                //         console.log(data);
-                //         localStorage.setItem('psychologist-token', data.token);
-                //         setUser(user);
-                //         form.reset();
-                //         navigate(from, { replace: true });
-                //     });
+                const currentUser = {
+                    email: user.email
+                }
+
+                // get jwt token and save it to localhost
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('resaleToken', data.token);
+                        setUser(user);
+                        navigate(from, { replace: true });
+                    });
             })
             .catch(err => {
                 setError(err.message);
@@ -53,25 +50,24 @@ const Login = () => {
                 const user = result.user;
                 setUser(user);
                 saveUser(user.displayName, user.email, 'buyer');
-                // const currentUser = {
-                //     email: user.email
-                // }
 
-                // // get jwt token
-                // fetch('https://psychologist-server.vercel.app/jwt', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify(currentUser)
-                // })
-                //     .then(res => res.json())
-                //     .then(data => {
-                //         console.log(data);
-                //         localStorage.setItem('psychologist-token', data.token);
-                //         setUser(user);
-                //         navigate(from, { replace: true });
-                //     });
+                const currentUser = {
+                    email: user.email
+                }
+                // get jwt token and save it to localhost
+                fetch('http://localhost:5000/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('resaleToken', data.token);
+                        setUser(user);
+                        navigate(from, { replace: true });
+                    });
             })
             .catch(err => {
                 setError(err.message);
@@ -94,7 +90,7 @@ const Login = () => {
     }
 
     return (
-        <div className="hero py-16">            
+        <div className="hero py-16">
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <div className="text-center lg:text-left ml-10">
                     <h1 className="text-5xl font-bold">Login now!</h1>

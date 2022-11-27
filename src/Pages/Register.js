@@ -26,9 +26,27 @@ const Register = () => {
                     .catch(err => {
                         setError(err.message);
                     });
-                setUser(result.user);
-                form.reset();
-                navigate(from, { replace: true });
+
+                    const currentUser = {
+                        email: result.user.email
+                    }
+                    // get jwt token and save it to localhost
+                    fetch('http://localhost:5000/jwt', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(currentUser)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            localStorage.setItem('resaleToken', data.token);
+                            setUser(result.user);
+                            navigate(from, { replace: true });
+                        });
+
+                // form.reset();
+                // navigate(from, { replace: true });
             })
             .catch(err => {
                 setError(err.message);

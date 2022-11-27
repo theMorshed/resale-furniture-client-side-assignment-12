@@ -7,6 +7,7 @@ import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 const Category = () => {
     const { id } = useParams();
     const [selectedFurniture, setSelectedFurniture] = useState({});
+
     const { data: furnitures, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
@@ -34,7 +35,7 @@ const Category = () => {
                                 <p><strong className='text-lg'>Resale Price:</strong> ${furniture.resale_price}</p>
                                 <p><strong className='text-lg'>Original Price:</strong> ${furniture.original_price}</p>
                                 <p><strong className='text-lg'>Years of Use:</strong> {(new Date().getFullYear() - furniture.purchase_year)} years</p>
-                                <p><strong className='text-lg'>Posted at:</strong> {furniture.date}</p>
+                                <p><strong className='text-lg'>Posted at:</strong> {furniture.date}</p>                                
                                 <p><strong className='text-lg'>Seller:</strong> {furniture.seller}</p>
                                 <div className="card-actions justify-end">
                                     {/* The button to open modal */}

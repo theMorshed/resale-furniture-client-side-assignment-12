@@ -40,7 +40,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logOut = () => {
-        // localStorage.removeItem('psychologist-token');
+        localStorage.removeItem('resaleToken');
         return signOut(auth);
     }
 
