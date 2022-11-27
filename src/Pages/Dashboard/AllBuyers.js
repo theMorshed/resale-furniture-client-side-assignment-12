@@ -5,14 +5,14 @@ import toast from 'react-hot-toast';
 const AllBuyers = () => {
     const [allBuyers, setAllBuyers] = useState([]);
     useEffect(() => {
-        axios('http://localhost:5000/allbuyers')
+        axios('https://resale-server.vercel.app/allbuyers')
             .then(result => {
                 setAllBuyers(result.data);
             });
-    }, []);    
+    }, []);
 
     const handleDelete = (id, name) => {
-        fetch(`http://localhost:5000/deleteBuyer/${id}`, {
+        fetch(`https://resale-server.vercel.app/deleteBuyer/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -20,7 +20,7 @@ const AllBuyers = () => {
                 toast.success(`${name} deleted successfully.`);
             })
     }
-    
+
     return (
         <div>
             <h2 className="text-3xl font-bold text-gray-500 mb-10">All Buyers:</h2>

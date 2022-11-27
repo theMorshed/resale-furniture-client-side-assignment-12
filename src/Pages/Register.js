@@ -16,7 +16,7 @@ const Register = () => {
         const password = form.password.value;
         const fullName = form.fullName.value;
         const role = form.role.value;
-        const userProfile = { displayName: fullName};
+        const userProfile = { displayName: fullName };
         createUser(email, password)
             .then(result => {
                 updateUserProfile(userProfile)
@@ -27,23 +27,23 @@ const Register = () => {
                         setError(err.message);
                     });
 
-                    const currentUser = {
-                        email: result.user.email
-                    }
-                    // get jwt token and save it to localhost
-                    fetch('http://localhost:5000/jwt', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(currentUser)
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            localStorage.setItem('resaleToken', data.token);
-                            setUser(result.user);
-                            navigate(from, { replace: true });
-                        });
+                const currentUser = {
+                    email: result.user.email
+                }
+                // get jwt token and save it to localhost
+                fetch('https://resale-server.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        localStorage.setItem('resaleToken', data.token);
+                        setUser(result.user);
+                        navigate(from, { replace: true });
+                    });
 
                 // form.reset();
                 // navigate(from, { replace: true });
@@ -55,7 +55,7 @@ const Register = () => {
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role, isVerified: false };
-        fetch('http://localhost:5000/users', {
+        fetch('https://resale-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

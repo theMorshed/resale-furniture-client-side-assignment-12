@@ -42,7 +42,7 @@ const AddFurniture = () => {
             status
         }
 
-        fetch('http://localhost:5000/addfurniture', {
+        fetch('https://resale-server.vercel.app/addfurniture', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

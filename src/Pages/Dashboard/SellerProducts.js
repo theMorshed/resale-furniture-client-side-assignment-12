@@ -7,7 +7,7 @@ const SellerProducts = () => {
     const {user} = useContext(AuthContext);
     // const [sellerProducts, setSellerProducts] = useState([]);
     // useEffect(() => {
-    //     axios(`http://localhost:5000/sellerproducts/${user?.email}`)
+    //     axios(`https://resale-server.vercel.app/sellerproducts/${user?.email}`)
     //     .then(result => {
     //         setSellerProducts(result.data);
     //     });
@@ -16,14 +16,14 @@ const SellerProducts = () => {
     const {data: sellerProducts, refetch} = useQuery({
         queryKey: ['sellerproducts'],
         queryFn: async() => {
-            const result = await fetch(`http://localhost:5000/sellerproducts/${user?.email}`);
+            const result = await fetch(`https://resale-server.vercel.app/sellerproducts/${user?.email}`);
             const data = await result.json();
             return data;
         }
     })
 
     const handleDelete = (id, name) => {
-        fetch(`http://localhost:5000/deletefurniture/${id}`, {
+        fetch(`https://resale-server.vercel.app/deletefurniture/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())

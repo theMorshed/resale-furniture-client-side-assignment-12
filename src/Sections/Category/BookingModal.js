@@ -27,20 +27,21 @@ const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
             location,
             product_id: _id
         }
-        
-        const url = 'http://localhost:5000/orders';
+
+        const url = 'https://resale-server.vercel.app/orders';
         fetch(url, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem('resaleToken')}`
             },
             body: JSON.stringify(bookedFurniture)
         })
-        .then(res => res.json())
-        .then(result => {
-            toast.success(`${item_name} booked successfully`);
-            navigate(`/dashboard/orders/${email}`);
-        })
+            .then(res => res.json())
+            .then(result => {
+                toast.success(`${item_name} booked successfully`);
+                navigate(`/dashboard/orders/${email}`);
+            })
 
         toast.success(`${name} booked successfully.`);
         setSelectedFurniture({});

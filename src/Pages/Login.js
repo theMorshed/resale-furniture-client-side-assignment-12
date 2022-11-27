@@ -25,7 +25,7 @@ const Login = () => {
                 }
 
                 // get jwt token and save it to localhost
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://resale-server.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -55,7 +55,7 @@ const Login = () => {
                     email: user.email
                 }
                 // get jwt token and save it to localhost
-                fetch('http://localhost:5000/jwt', {
+                fetch('https://resale-server.vercel.app/jwt', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -76,7 +76,7 @@ const Login = () => {
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
-        fetch('http://localhost:5000/users', {
+        fetch('https://resale-server.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
