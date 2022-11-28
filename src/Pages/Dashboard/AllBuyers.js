@@ -5,11 +5,7 @@ import toast from 'react-hot-toast';
 const AllBuyers = () => {
     const [allBuyers, setAllBuyers] = useState([]);
     useEffect(() => {
-        axios('https://resale-server.vercel.app/allbuyers', {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('resaleToken')}`
-            }
-        })
+        axios('https://resale-server.vercel.app/allbuyers')
             .then(result => {
                 setAllBuyers(result.data);
             });
@@ -30,7 +26,7 @@ const AllBuyers = () => {
             {allBuyers?.length > 0 ? <h2 className="text-3xl font-bold text-gray-500 mb-10">All Buyers:</h2> : <h2 className="text-3xl font-bold text-gray-500 mb-10">You don't have any buyers to display</h2>}
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6'>
                 {
-                    allBuyers.map(buyer => <div className='border p-3 rounded-lg hover:border-primary' key={buyer._id}>
+                    allBuyers?.map(buyer => <div className='border p-3 rounded-lg hover:border-primary' key={buyer._id}>
                         <p className="text-gray-500">Name: {buyer.name}</p>
                         <button className="btn btn-primary mt-6 btn-sm" onClick={() => handleDelete(buyer._id, buyer.name)}>Delete</button>
                     </div>)
