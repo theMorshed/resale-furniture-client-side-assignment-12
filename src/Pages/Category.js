@@ -31,7 +31,7 @@ const Category = () => {
             seller
         };
 
-        fetch('http://localhost:5000/reportFurniture', {
+        fetch('https://resale-server.vercel.app/reportFurniture', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

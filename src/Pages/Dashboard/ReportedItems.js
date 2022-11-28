@@ -7,7 +7,7 @@ const ReportedItems = () => {
     const {data: reportedItems, isLoading, refetch} = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const result = await fetch('http://localhost:5000/reportedFurniture');
+            const result = await fetch('https://resale-server.vercel.app/reportedFurniture');
             const data = await result.json();
             return data;
         }
@@ -18,7 +18,7 @@ const ReportedItems = () => {
     }
 
     const handleDelete = (id, name) => {
-        fetch(`http://localhost:5000/deleteReported/${id}`, {
+        fetch(`https://resale-server.vercel.app/deleteReported/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -27,7 +27,7 @@ const ReportedItems = () => {
                 refetch();
             })
 
-        fetch(`http://localhost:5000/deleteReportedFromReports/${id}`, {
+        fetch(`https://resale-server.vercel.app/deleteReportedFromReports/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

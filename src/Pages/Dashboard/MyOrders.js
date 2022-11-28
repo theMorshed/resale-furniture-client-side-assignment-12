@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../Contexts/AuthProvider';
 import LoadingSpinner from '../../Sections/Common/LoadingSpinner';
 
 const MyOrders = () => {
-    const {email} = useParams();
-    const {data: orders, isLoading, refetch} = useQuery({
+    const { user } = useContext(AuthContext);
+    const { data: orders, isLoading, refetch } = useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-            const result = await fetch(`https://resale-server.vercel.app/dashboard/orders/${email}`, {
+            const result = await fetch(`https://resale-server.vercel.app/dashboard/orders/${user?.email}`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('resaleToken')}`
                 }
@@ -22,7 +23,7 @@ const MyOrders = () => {
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
     }
-    
+
     const handleDelete = id => {
         fetch(`https://resale-server.vercel.app/deleteOrder/${id}`, {
             method: 'DELETE'
@@ -43,7 +44,9 @@ const MyOrders = () => {
                     orders.map(order => <div className='border p-3 rounded-lg hover:border-primary' key={order._id}>
                         <p className="text-gray-500">Name: {order.item_name}</p>
                         <p className="text-gray-500">Price: ${order.price}</p>
-                        <Link to={`/dashboard/payment/${order.product_id}`}><button className="btn btn-primary mt-6 mr-3">Pay Now</button></Link>
+                        {
+                            order.status === 'paid' ? <span className='text-green-500 mr-5'>Paid</span> : <Link to={`/dashboard/payment/${order._id}`}><button className="btn btn-primary mt-6 mr-3">Pay Now</button></Link>
+                        }
                         <button className="btn btn-primary mt-6" onClick={() => handleDelete(order._id)}>Delete</button>
                     </div>)
                 }

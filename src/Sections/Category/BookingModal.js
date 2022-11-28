@@ -25,7 +25,8 @@ const BookingModal = ({ setSelectedFurniture, selectedFurniture }) => {
             price,
             phone,
             location,
-            product_id: _id
+            product_id: _id,
+            status: 'unpaid'
         }
 
         const url = 'https://resale-server.vercel.app/orders';

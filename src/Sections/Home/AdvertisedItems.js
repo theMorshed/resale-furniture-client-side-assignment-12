@@ -8,10 +8,11 @@ const AdvertisedItems = ({ advertisedFurniture }) => {
     const {user} = useContext(AuthContext);
     const [userRole] = useRole(user?.email);
     const [selectedFurniture, setSelectedFurniture] = useState({});
+    
     return (
         <div className='mt-10'>
             <h2 className="text-3xl font-bold text-gray-500">Advertised Items: </h2>
-            <p className="text-xl text-gray-400">Products for sale</p>         
+            <p className="text-xl text-gray-400">Products for sale</p>       
             <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 mt-5">
                 {
                     advertisedFurniture?.map(furniture => furniture.status === 'available' && <div className="card lg:card-side shadow-xl" key={furniture._id}>

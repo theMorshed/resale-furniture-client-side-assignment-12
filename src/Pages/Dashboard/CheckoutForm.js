@@ -1,7 +1,7 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 
-const CheckoutForm = ({ furniture }) => {    
+const CheckoutForm = ({ order }) => {    
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
@@ -9,21 +9,22 @@ const CheckoutForm = ({ furniture }) => {
     const [clientSecret, setClientSecret] = useState("");
     const stripe = useStripe();
     const elements = useElements();
-    const {_id, name, email, resale_price} = furniture;
+    const {_id, item_name, email, price, product_id} = order;
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
-        fetch("http://localhost:5000/create-payment-intent", {
+        fetch("https://resale-server.vercel.app/create-payment-intent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify({ resale_price }),
+            body: JSON.stringify({ price }),
         })
             .then((res) => res.json())
-            .then((data) => setClientSecret(data.clientSecret));
-    }, [resale_price]);
+            .then((data) => {
+                setClientSecret(data.clientSecret)
+            });
+    }, [price]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -43,7 +44,6 @@ const CheckoutForm = ({ furniture }) => {
         });
 
         if (error) {
-            console.log(error);
             setCardError(error.message);
         }
         else {
@@ -57,7 +57,7 @@ const CheckoutForm = ({ furniture }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: name,
+                        name: item_name,
                         email: email
                     },
                 },
@@ -69,19 +69,17 @@ const CheckoutForm = ({ furniture }) => {
             return;
         }
         if (paymentIntent.status === "succeeded") {
-            console.log('card info', card);
             // store payment info in the database
             const payment = {
-                resale_price,
+                price,
                 transactionId: paymentIntent.id,
                 email,
                 bookingId: _id
             }
-            fetch('http://localhost:5000/payments', {
+            fetch('https://resale-server.vercel.app/payments', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
                 },
                 body: JSON.stringify(payment)
             })
@@ -93,15 +91,26 @@ const CheckoutForm = ({ furniture }) => {
                         setTransactionId(paymentIntent.id);
                     }
                 })
+            // update furniture status available to sold
+            fetch(`https://resale-server.vercel.app/updateFurnitureStatus/${product_id}`, {
+                method: 'PUT'
+            })
+                .then(res => res.json())
+                .then(result => {})
+
+            // update order status unsold to sold
+            fetch(`https://resale-server.vercel.app/updateOrderStatus/${_id}`, {
+                method: 'PUT'
+            })
+                .then(res => res.json())
+                .then(result => { })
         }
         setProcessing(false);
-
-
     }
 
     return (
         <>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{
                         style: {
@@ -121,18 +130,18 @@ const CheckoutForm = ({ furniture }) => {
                 <button
                     className='btn btn-sm mt-4 btn-primary'
                     type="submit"
-                    // disabled={!stripe || !clientSecret || processing}
+                    disabled={!stripe || !clientSecret || processing}
                     >
                     Pay
                 </button>
             </form>
-            {/* <p className="text-red-500">{cardError}</p>
+            <p className="text-red-500">{cardError}</p>
             {
                 success && <div>
                     <p className='text-green-500'>{success}</p>
                     <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
                 </div>
-            } */}
+            }
         </>
     );
 };
