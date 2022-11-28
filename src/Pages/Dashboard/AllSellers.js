@@ -41,9 +41,8 @@ const AllSellers = () => {
     }
 
     return (
-        <div>
-            <h2 className="text-3xl font-bold text-gray-500 mb-10">All Sellers:</h2>
-
+        <div>            
+            {allSellers?.length > 0 ? <h2 className="text-3xl font-bold text-gray-500 mb-10">All Sellers:</h2> : <h2 className="text-3xl font-bold text-gray-500 mb-10">You don't have any sellers to display</h2>}
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-6'>
                 {
                     allSellers.map(seller => <div className='border p-3 rounded-lg hover:border-primary' key={seller._id}>

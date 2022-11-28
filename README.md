@@ -1,4 +1,4 @@
-## Psychiatrist Website
+## Furniture Resale Website
 
 Live Website Link:
 [Furniture Resale](https://resale-furniture.web.app/)

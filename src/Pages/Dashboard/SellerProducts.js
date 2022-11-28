@@ -5,13 +5,6 @@ import { AuthContext } from '../../Contexts/AuthProvider';
 
 const SellerProducts = () => {
     const {user} = useContext(AuthContext);
-    // const [sellerProducts, setSellerProducts] = useState([]);
-    // useEffect(() => {
-    //     axios(`https://resale-server.vercel.app/sellerproducts/${user?.email}`)
-    //     .then(result => {
-    //         setSellerProducts(result.data);
-    //     });
-    // }, [user?.email]);
 
     const {data: sellerProducts, refetch} = useQuery({
         queryKey: ['sellerproducts'],
@@ -23,7 +16,7 @@ const SellerProducts = () => {
     });
 
     const handleAdvertiseItem = (id, name) => {
-        fetch(`http://localhost:5000/advertisefurniture/${id}`, {
+        fetch(`https://resale-server.vercel.app/advertisefurniture/${id}`, {
             method: 'PUT'
         })
             .then(res => res.json())

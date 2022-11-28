@@ -9,7 +9,7 @@ const AddFurniture = () => {
     const { user } = useContext(AuthContext);
     const [isVerified, setIsVerified] = useState(false);
 
-    axios(`http://localhost:5000/verifySeller/${user?.email}`)
+    axios(`https://resale-server.vercel.app/verifySeller/${user?.email}`)
         .then(result => setIsVerified(result.data.isVerified));
 
     const handleAddFurniture = event => {

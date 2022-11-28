@@ -8,7 +8,7 @@ const Home = () => {
     const [advertisedFurniture, setAdvertisedFurniture] = useState([]);
 
     useEffect(() => {        
-        axios('http://localhost:5000/advertisedFurniture')
+        axios('https://resale-server.vercel.app/advertisedFurniture')
         .then(result => setAdvertisedFurniture(result.data))
     }, []);
     

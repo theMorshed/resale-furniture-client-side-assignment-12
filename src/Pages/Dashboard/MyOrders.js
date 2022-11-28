@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LoadingSpinner from '../../Sections/Common/LoadingSpinner';
 
 const MyOrders = () => {
@@ -43,7 +43,7 @@ const MyOrders = () => {
                     orders.map(order => <div className='border p-3 rounded-lg hover:border-primary' key={order._id}>
                         <p className="text-gray-500">Name: {order.item_name}</p>
                         <p className="text-gray-500">Price: ${order.price}</p>
-                        <button className="btn btn-primary mt-6 mr-3">Buy Now</button>
+                        <Link to={`/dashboard/payment/${order.product_id}`}><button className="btn btn-primary mt-6 mr-3">Pay Now</button></Link>
                         <button className="btn btn-primary mt-6" onClick={() => handleDelete(order._id)}>Delete</button>
                     </div>)
                 }

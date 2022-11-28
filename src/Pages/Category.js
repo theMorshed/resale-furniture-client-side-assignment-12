@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import BookingModal from '../Sections/Category/BookingModal';
 import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 import { SiVerizon } from "react-icons/si";
+import toast from 'react-hot-toast';
 
 const Category = () => {
     const { id } = useParams();
@@ -20,6 +21,29 @@ const Category = () => {
 
     if (isLoading) {
         return <LoadingSpinner></LoadingSpinner>
+    }
+
+    const handleReport = (id, name, price, seller) => {
+        const reportedFurniture = {
+            product_id: id,
+            name,
+            price,
+            seller
+        };
+
+        fetch('http://localhost:5000/reportFurniture', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(reportedFurniture)
+        })
+        .then(res => res.json())
+        .then(result => {
+            if (result.acknowledged) {
+                toast.success(`${name} reported successfully`);
+            }
+        })
     }
 
 
@@ -40,7 +64,9 @@ const Category = () => {
                                 <p><strong className='text-lg'>Posted at:</strong> {furniture.date}</p>
                                 <p><strong className='text-lg'>Seller:</strong> {furniture.verifiedSeller && <SiVerizon className='inline ml-3 mr-1 border rounded-full p-1 text-2xl text-primary border-primary'></SiVerizon>} {furniture.seller}</p>
                                 <p>{furniture.verifiedSeller && `${furniture.name} added by verified seller`}</p>
-                                <div className="card-actions justify-end">
+                                
+                                <div className='grid gap-1'>
+                                    <button onClick={() => handleReport(furniture._id, furniture.name, furniture.resale_price, furniture.seller)} className='btn btn-sm btn-primary'>Report Admin</button>
                                     {/* The button to open modal */}
                                     <label onClick={() => setSelectedFurniture(furniture)} htmlFor="furniture-book-modal" className="btn btn-primary btn-sm">Book Now</label>
                                 </div>
