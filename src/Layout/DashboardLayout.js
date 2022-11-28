@@ -4,10 +4,15 @@ import { AuthContext } from '../Contexts/AuthProvider';
 import useRole from '../hooks/useRole';
 import Footer from '../Sections/Common/Footer';
 import Header from '../Sections/Common/Header';
+import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 
 const DashboardLayout = () => {
     const {user} = useContext(AuthContext);
-    const [userRole] = useRole(user?.email);
+    const [userRole, UserRoleLoading] = useRole(user?.email);
+
+    if (UserRoleLoading) {
+        return <LoadingSpinner></LoadingSpinner>
+    }
 
     return (
         <div className='w-3/4 mx-auto'>

@@ -17,7 +17,10 @@ const SellerProducts = () => {
 
     const handleAdvertiseItem = (id, name) => {
         fetch(`https://resale-server.vercel.app/advertisefurniture/${id}`, {
-            method: 'PUT'
+            method: 'PUT',
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('resaleToken')}`
+            }
         })
             .then(res => res.json())
             .then(result => {

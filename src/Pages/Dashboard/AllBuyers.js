@@ -5,7 +5,11 @@ import toast from 'react-hot-toast';
 const AllBuyers = () => {
     const [allBuyers, setAllBuyers] = useState([]);
     useEffect(() => {
-        axios('https://resale-server.vercel.app/allbuyers')
+        axios('https://resale-server.vercel.app/allbuyers', {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('resaleToken')}`
+            }
+        })
             .then(result => {
                 setAllBuyers(result.data);
             });

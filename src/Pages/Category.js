@@ -1,25 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
 import BookingModal from '../Sections/Category/BookingModal';
 import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 import { SiVerizon } from "react-icons/si";
 import toast from 'react-hot-toast';
 
 const Category = () => {
-    const { id } = useParams();
     const [selectedFurniture, setSelectedFurniture] = useState({});
+    const navigation = useNavigation();
 
-    const { data: furnitures, isLoading } = useQuery({
-        queryKey: ['categories'],
-        queryFn: async () => {
-            const result = await fetch(`https://resale-server.vercel.app/category/${id}`);
-            const data = await result.json();
-            return data;
-        }
-    });
+    const furnitures = useLoaderData();
 
-    if (isLoading) {
+    if (navigation.state === 'loading') {
         return <LoadingSpinner></LoadingSpinner>
     }
 
@@ -46,10 +38,12 @@ const Category = () => {
         })
     }
 
+    console.log(furnitures);
+
 
     return (
         <div className='mt-10'>
-            <h2 className="text-3xl font-bold text-gray-500">Dinning Products: </h2>
+            {furnitures && <h2 className="text-3xl font-bold text-gray-500">Dinning Products: </h2>}
             <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 mt-5">
                 {
                     furnitures?.map(furniture =>
