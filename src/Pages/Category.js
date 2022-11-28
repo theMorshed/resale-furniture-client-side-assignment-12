@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLoaderData, useNavigation, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigation } from 'react-router-dom';
 import BookingModal from '../Sections/Category/BookingModal';
 import LoadingSpinner from '../Sections/Common/LoadingSpinner';
 import { SiVerizon } from "react-icons/si";

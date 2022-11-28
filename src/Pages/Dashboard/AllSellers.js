@@ -18,7 +18,7 @@ const AllSellers = () => {
         return <LoadingSpinner></LoadingSpinner>
     }
 
-    const handleVerify = (id, name) => {
+    const handleVerify = (id, name, email) => {
         fetch(`https://resale-server.vercel.app/verifySeller/${id}`, {
             method: 'PUT'
         })
@@ -27,6 +27,12 @@ const AllSellers = () => {
                 toast.success(`${name} varified successfully.`);
                 refetch();
             })
+
+        fetch(`https://resale-server.vercel.app/verifySellerInFurniture/${email}`, {
+            method: 'PUT'
+        })
+            .then(res => res.json())
+            .then(result => { })
     }
 
     const handleDelete = (id, name, email) => {
@@ -54,7 +60,7 @@ const AllSellers = () => {
                 {
                     allSellers.map(seller => <div className='border p-3 rounded-lg hover:border-primary' key={seller._id}>
                         <p className="text-gray-500">{seller.isVerified && <SiVerizon className='inline mr-3 border rounded-full p-1 text-2xl text-primary border-primary'></SiVerizon>}{seller.name}</p>
-                        {!seller.isVerified && <button className="btn btn-primary mt-6 btn-sm mr-3" onClick={() => handleVerify(seller._id, seller.name)}>Verify</button>}
+                        {!seller.isVerified && <button className="btn btn-primary mt-6 btn-sm mr-3" onClick={() => handleVerify(seller._id, seller.name, seller.email)}>Verify</button>}
                         <button className="btn btn-primary mt-6 btn-sm" onClick={() => handleDelete(seller._id, seller.name, seller.email)}>Delete</button>
                     </div>)
                 }
