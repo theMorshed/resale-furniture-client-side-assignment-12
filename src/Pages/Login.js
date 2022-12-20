@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Contexts/AuthProvider';
 
 const Login = () => {
-    const { logIn, setUser, googleLogin, setError } = useContext(AuthContext);
+    const { logIn, error, setUser, googleLogin, setError } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -114,6 +114,12 @@ const Login = () => {
                             </label>
                             <Link className="label-text-alt link link-hover ml-1" to='/register'>Don't have an account? Please register here.</Link>
                         </div>
+                        {
+                            error ?
+                                <p className='text-red-500 font-semibold'>{error}</p>
+                                :
+                                ''
+                        }
                         <div className="form-control mt-6">
                             <button className="btn btn-primary">Login</button>
                         </div>
